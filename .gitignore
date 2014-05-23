@@ -1,0 +1,14 @@
+# OS and Editor folders
+.DS_Store
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+.idea
+*.esproj
+nbproject
+
+# Folders to ignore
+vendor
+composer.lock

@@ -1,0 +1,20 @@
+{
+    "name": "pixelfusion/blueman",
+    "description": "Generate Postman collections from API Blueprint JSON files",
+    "authors": [
+        {
+            "name": "Wouter Peschier",
+            "email": "wouter@pixelfusion.co.nz"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "symfony/console": "2.4.4",
+        "rhumsaa/uuid": "2.7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Blueman\\": "src/Blueman"
+        }
+    }
+}
