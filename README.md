@@ -18,7 +18,7 @@ $ mv blueman.phar /usr/local/bin/blueman
 
 ## Install using Composer
 
-Blueman can also be installed using Composer for you prefer that:
+Blueman can also be installed using Composer if you prefer that:
 
 ```sh
 $ composer create-project pixelfusion/blueman your-project-name
