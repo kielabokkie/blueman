@@ -1,25 +1,53 @@
 # Blueman
 
-Convert a [API Blueprint](http://apiblueprint.org) JSON file into a [Postman](http://www.getpostman.com) collection.
+Convert an [API Blueprint](http://apiblueprint.org) JSON file into a [Postman](http://www.getpostman.com) collection.
 
-## Installation
+## Install Blueman as a Phar (recommended)
 
-### Phar (recommended)
+Use the installer to download Blueman:
 
-    curl -sS https://blueman.pixelfusion.co.nz/installer | php
+    ``` sh
+    $ curl -sS http://blueman.pixelfusion.co.nz/installer.php | php
+    ```
 
-### Composer:
+This will grab the latest version of Blueman and copy it to your current directory. We recommend moving it to the bin directory so you can run the Blueman from anywhere:
 
-    composer create-project pixelfusion/blueman your-project-name
+    ``` sh
+    $ mv blueman.phar /usr/local/bin/blueman
+    ````
+
+## Install using Composer
+
+Blueman can also be installed using Composer for you prefer that:
+
+	``` sh
+    $ composer create-project pixelfusion/blueman your-project-name
+    ```
 
 ## Usage
 
 To generate the Postman collection you run the `convert` command. For example, if the API Blueprint JSON file you generated is called `api.json` you would execute the following command:
 
-    ./bin/console convert api.json
+    ``` sh
+    $ blueman convert api.json
+    ```
 
-This command will generate a file called `collection.json`, which is the file you can import in Postman.
+Or if you installed Blueman using Composer:
 
-By default it will look for the JSON file in the same location as where you are running the command. If your file is somewhere else on your computer you need to specify the path:
+	``` sh
+    $ ./bin/console convert api.json
+    ```
 
-    ./bin/console convert api.json --path='/Users/wouter/Desktop'
+This command will generate a file called `collection.json`, which you can import in Postman.
+
+By default Blueman will look for the JSON file in the same location as where you are running the command. If your file is in another directory, you need to specify the path:
+
+	``` sh
+    $ blueman convert api.json --path='/Users/wouter/Desktop'
+    ```
+
+Or for a Composer install:
+
+	``` sh
+    $ ./bin/console convert api.json --path='/Users/wouter/Desktop'
+    ```
