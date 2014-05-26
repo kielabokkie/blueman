@@ -25,6 +25,12 @@ class ConvertCommand extends Command
                InputOption::VALUE_REQUIRED,
                'The absolute path pointing to the location of your JSON file. Defaults to the current directory.'
             )
+            ->addOption(
+               'host',
+               null,
+               InputOption::VALUE_REQUIRED,
+               'The base host of your API (e.g. https://api.example.com/v1).'
+            )
             ->setHelp(<<<EOT
 The <info>convert</info> command converts an API Blueprint JSON file into a Postman collection.
 EOT
@@ -55,10 +61,14 @@ EOT
         $collection['name'] = $blueprint->name;
         $collection['description'] = $blueprint->description;
 
-        // Check if the default host is set in the metadata
-        foreach ($blueprint->metadata as $metadata) {
-            if ($metadata->name === 'HOST') {
-                $host = $metadata->value;
+        $host = $input->getOption('host');
+
+        if (is_null($host)) {
+            // Check if the default host is set in the metadata
+            foreach ($blueprint->metadata as $metadata) {
+                if ($metadata->name === 'HOST') {
+                    $host = $metadata->value;
+                }
             }
         }
 
@@ -66,8 +76,8 @@ EOT
             $dialog = $this->getHelperSet()->get('dialog');
             $host = $dialog->ask(
                 $output,
-                "\n<info>Please enter the base uri of your API</info> [<comment>http://api.example.com/v1</comment>]: ",
-                'http://api.example.com/v1'
+                "\n<info>Please enter the base uri of your API</info> [<comment>https://api.example.com/v1</comment>]: ",
+                'https://api.example.com/v1'
             );
         }
 

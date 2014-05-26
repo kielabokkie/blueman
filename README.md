@@ -32,7 +32,7 @@ To generate the Postman collection you run the `convert` command. For example, i
 $ blueman convert api.json
 ```
 
-Or if you installed Blueman using Composer:
+Note: If you installed Blueman using Composer you have to replace `blueman` with `./bin/console` in all the example commands, e.g.:
 
 ```sh
 $ ./bin/console convert api.json
@@ -43,11 +43,27 @@ This command will generate a file called `collection.json`, which you can import
 By default Blueman will look for the JSON file in the same location as where you are running the command. If your file is in another directory, you need to specify the path:
 
 ```sh
-$ blueman convert api.json --path='/Users/wouter/Desktop'
+$ blueman convert api.json --path=/Users/wouter/Desktop
 ```
 
-Or for a Composer install:
+### Setting the host
+
+The base host of your API can be set in a couple of different ways.
+
+First of all you can specify it in your API Blueprint as metadata by adding the following line to the top of your API Blueprint Markdown file:
+
+    HOST: https://api.example.com/v1
+
+If your Markdown file doesn't have the host metadata or if you want to overwrite it, you can specify the host when executing the `convert` command:
 
 ```sh
-$ ./bin/console convert api.json --path='/Users/wouter/Desktop'
+$ blueman convert api.json --host=https://api.example.com/v1
+```
+
+Lastly, if you don't do either of the above you'll be prompted to set the host when you execute the `convert` command.
+
+**TIP:** If you use environments in Postman to test your API on different servers (sandbox, user acceptance testing, etc.) you can use the host option to specify your placeholder keys that you've setup in Postman's environment config:
+
+```sh
+$ blueman convert api.json --host=https://api.{{host}}/v1
 ```
