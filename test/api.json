@@ -1,0 +1,387 @@
+{
+  "_version": "2.0",
+  "metadata": [
+    {
+      "name": "HOST",
+      "value": "https://foosball.pixelfusion.co.nz/v1"
+    },
+    {
+      "name": "FORMAT",
+      "value": "1A"
+    }
+  ],
+  "name": "Foosball API",
+  "description": "## Introduction\n\nThis is a simple API for keeping Foosball scores. It doesn't really exists and is just created to demonstrate the the <a href=\"http://git.io/api-blueprint-parser\" target=\"_blank\">API Blueprint Parser</a>.\n\n",
+  "resourceGroups": [
+    {
+      "name": "Matches",
+      "description": "",
+      "resources": [
+        {
+          "name": "",
+          "description": "",
+          "uriTemplate": "/matches",
+          "model": {},
+          "parameters": [],
+          "actions": [
+            {
+              "name": "Create Match",
+              "description": "Add a match result.\n\n",
+              "method": "POST",
+              "parameters": [],
+              "examples": [
+                {
+                  "name": "",
+                  "description": "",
+                  "requests": [
+                    {
+                      "name": "",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "name": "X-API-TOKEN",
+                          "value": "{{SOME_API_TOKEN}}"
+                        }
+                      ],
+                      "body": "{\n    \"player_home\": 1,\n    \"player_away\": 2,\n    \"score_home\": 10,\n    \"score_away\": 7\n}\n",
+                      "schema": ""
+                    }
+                  ],
+                  "responses": [
+                    {
+                      "name": "201",
+                      "description": "",
+                      "headers": [],
+                      "body": "",
+                      "schema": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "",
+          "description": "",
+          "uriTemplate": "/matches/{id}",
+          "model": {},
+          "parameters": [],
+          "actions": [
+            {
+              "name": "Retrieve a Match",
+              "description": "Retrieve a match by its unique `id`.\n\n",
+              "method": "GET",
+              "parameters": [
+                {
+                  "name": "id",
+                  "description": "The unique identifier of the match",
+                  "type": "string",
+                  "required": true,
+                  "default": "",
+                  "example": "nwWGgh",
+                  "values": []
+                }
+              ],
+              "examples": [
+                {
+                  "name": "",
+                  "description": "",
+                  "requests": [
+                    {
+                      "name": "",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "X-API-TOKEN",
+                          "value": "{{SOME_API_TOKEN}}"
+                        }
+                      ],
+                      "body": "",
+                      "schema": ""
+                    }
+                  ],
+                  "responses": [
+                    {
+                      "name": "200",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": \"nwWGgh\",\n        \"score_home\": 10,\n        \"score_away\": 7,\n        \"player_home\": {\n             \"id\": \"laHquq\",\n            \"name\": \"Wouter\",\n            \"rank\": 1\n        },\n        \"player_away\": {\n            \"id\": \"hyVrox\",\n            \"name\": \"Aarron\",\n            \"rank\": 2\n        }\n    }\n}\n",
+                      "schema": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Delete a Match",
+              "description": "Delete a match from the database by its unique `id`.\n\n",
+              "method": "DELETE",
+              "parameters": [
+                {
+                  "name": "id",
+                  "description": "The unique identifier of the match",
+                  "type": "string",
+                  "required": true,
+                  "default": "",
+                  "example": "nwWGgh",
+                  "values": []
+                }
+              ],
+              "examples": [
+                {
+                  "name": "",
+                  "description": "",
+                  "requests": [
+                    {
+                      "name": "",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "X-API-TOKEN",
+                          "value": "{{SOME_API_TOKEN}}"
+                        }
+                      ],
+                      "body": "",
+                      "schema": ""
+                    }
+                  ],
+                  "responses": [
+                    {
+                      "name": "204",
+                      "description": "",
+                      "headers": [],
+                      "body": "",
+                      "schema": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Players",
+      "description": "",
+      "resources": [
+        {
+          "name": "Player",
+          "description": "",
+          "uriTemplate": "/players",
+          "model": {},
+          "parameters": [],
+          "actions": [
+            {
+              "name": "Create a Player",
+              "description": "Add a new player.\n\n",
+              "method": "POST",
+              "parameters": [],
+              "examples": [
+                {
+                  "name": "",
+                  "description": "",
+                  "requests": [
+                    {
+                      "name": "",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "name": "X-API-TOKEN",
+                          "value": "{{SOME_API_TOKEN}}"
+                        }
+                      ],
+                      "body": "{\n    \"name\": \"Craig\"\n}\n",
+                      "schema": ""
+                    }
+                  ],
+                  "responses": [
+                    {
+                      "name": "201",
+                      "description": "",
+                      "headers": [],
+                      "body": "",
+                      "schema": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Player",
+          "description": "",
+          "uriTemplate": "/players/{id}",
+          "model": {},
+          "parameters": [],
+          "actions": [
+            {
+              "name": "Retrieve a Player",
+              "description": "Retrieve a player by its `id`.\n\n",
+              "method": "GET",
+              "parameters": [
+                {
+                  "name": "id",
+                  "description": "The unique identifier of the player",
+                  "type": "string",
+                  "required": true,
+                  "default": "",
+                  "example": "laHquq",
+                  "values": []
+                }
+              ],
+              "examples": [
+                {
+                  "name": "",
+                  "description": "",
+                  "requests": [
+                    {
+                      "name": "",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "X-API-TOKEN",
+                          "value": "{{SOME_API_TOKEN}}"
+                        }
+                      ],
+                      "body": "",
+                      "schema": ""
+                    }
+                  ],
+                  "responses": [
+                    {
+                      "name": "200",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": \"laHquq\",\n        \"name\": \"Wouter\",\n        \"rank\": 1\n    }\n}\n",
+                      "schema": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Edit a Player",
+              "description": "Edit a player by its unique `id`.\n\n",
+              "method": "PATCH",
+              "parameters": [
+                {
+                  "name": "id",
+                  "description": "The unique identifier of the player",
+                  "type": "string",
+                  "required": true,
+                  "default": "",
+                  "example": "laHquq",
+                  "values": []
+                }
+              ],
+              "examples": [
+                {
+                  "name": "",
+                  "description": "",
+                  "requests": [
+                    {
+                      "name": "",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "name": "X-API-TOKEN",
+                          "value": "{{SOME_API_TOKEN}}"
+                        }
+                      ],
+                      "body": "{\n    \"name\": \"Kielabokkie\",\n}\n",
+                      "schema": ""
+                    }
+                  ],
+                  "responses": [
+                    {
+                      "name": "200",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": \"laHquq\",\n        \"name\": \"Kielabokkie\",\n        \"rank\": 1\n    }\n}\n",
+                      "schema": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Delete a Player",
+              "description": "Delete a player from the database by its unique `id`.\n\n",
+              "method": "DELETE",
+              "parameters": [
+                {
+                  "name": "id",
+                  "description": "The unique identifier of the player",
+                  "type": "string",
+                  "required": true,
+                  "default": "",
+                  "example": "laHquq",
+                  "values": []
+                }
+              ],
+              "examples": [
+                {
+                  "name": "",
+                  "description": "",
+                  "requests": [
+                    {
+                      "name": "",
+                      "description": "",
+                      "headers": [
+                        {
+                          "name": "X-API-TOKEN",
+                          "value": "{{SOME_API_TOKEN}}"
+                        }
+                      ],
+                      "body": "",
+                      "schema": ""
+                    }
+                  ],
+                  "responses": [
+                    {
+                      "name": "204",
+                      "description": "",
+                      "headers": [],
+                      "body": "",
+                      "schema": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
