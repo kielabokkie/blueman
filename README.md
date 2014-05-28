@@ -2,6 +2,8 @@
 
 Convert an [API Blueprint](http://apiblueprint.org) JSON file into a [Postman](http://www.getpostman.com) collection.
 
+[![Build Status](https://travis-ci.org/pixelfusion/blueman.svg?branch=master)](https://travis-ci.org/pixelfusion/blueman)
+
 ## Install Blueman as a Phar (recommended)
 
 Use the installer to download Blueman:
@@ -14,6 +16,12 @@ This will grab the latest version of Blueman and copy it to your current directo
 
 ```sh
 $ mv blueman.phar /usr/local/bin/blueman
+```
+
+Whenever there is a new version of Blueman you can run `self-update` to update to the latest version:
+
+```sh
+blueman self-update
 ```
 
 ## Install using Composer

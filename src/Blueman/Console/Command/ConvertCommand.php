@@ -15,7 +15,7 @@ class ConvertCommand extends Command
         $this->setName("convert")
             ->setDescription("Converts an API Blueprint JSON file into a Postman collection")
             ->addArgument(
-                'input_file',
+                'input-file',
                 InputArgument::REQUIRED,
                 'The JSON file to convert'
             )
@@ -41,19 +41,21 @@ EOT
     {
         $filePath = $input->getOption('path');
 
-        $file = is_null($filePath) ? $input->getArgument('input_file') : $filePath.DIRECTORY_SEPARATOR.$input->getArgument('input_file');
+        $file = is_null($filePath) ? $input->getArgument('input-file') : $filePath.DIRECTORY_SEPARATOR.$input->getArgument('input-file');
 
         if (!file_exists($file)) {
-            $output->writeln(sprintf("\n<error>Error: API Blueprint file [%s] not found.</error>\n", $file));
-            exit();
+            throw new \Exception(
+                sprintf("API Blueprint file [%s] not found.", $file)
+            );
         }
 
         $blueprint = json_decode(file_get_contents($file));
 
         $version = (float)$blueprint->_version;
         if ($version < 2.0) {
-            $output->writeln(sprintf("\n<error>Your API Blueprint needs to be build with Snow Crash 0.9.0 or higher.</error>"));
-            exit();
+            throw new \Exception(
+                'Your API Blueprint needs to be build with Snow Crash 0.9.0 or higher.'
+            );
         }
 
         $collection = array();

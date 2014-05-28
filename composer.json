@@ -13,6 +13,9 @@
         "symfony/console": "2.4.4",
         "rhumsaa/uuid": "2.7.1"
     },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
     "autoload": {
         "psr-4": {
             "Blueman\\": "src/Blueman"
