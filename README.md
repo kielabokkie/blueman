@@ -21,7 +21,7 @@ $ mv blueman.phar /usr/local/bin/blueman
 Whenever there is a new version of Blueman you can run `self-update` to update to the latest version:
 
 ```sh
-blueman self-update
+$ blueman self-update
 ```
 
 ## Install using Composer
