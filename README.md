@@ -1,8 +1,10 @@
 # Blueman
 
-Convert an [API Blueprint](http://apiblueprint.org) JSON file into a [Postman](http://www.getpostman.com) collection.
+[![Author](http://img.shields.io/badge/author-@kielabokkie-lightgrey.svg?style=flat-square)](https://twitter.com/kielabokkie)
+[![Build Status](http://img.shields.io/travis/pixelfusion/blueman/master.svg?style=flat-square)](https://travis-ci.org/pixelfusion/blueman)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-[![Build Status](https://travis-ci.org/pixelfusion/blueman.svg?branch=master)](https://travis-ci.org/pixelfusion/blueman)
+Convert an [API Blueprint](http://apiblueprint.org) JSON file into a [Postman](http://www.getpostman.com) collection.
 
 ## Install Blueman as a Phar (recommended)
 
