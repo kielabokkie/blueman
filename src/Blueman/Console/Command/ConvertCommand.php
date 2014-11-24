@@ -135,7 +135,12 @@ EOT
 
         $collection['requests'] = $requests;
 
-        file_put_contents($input->getOption('output'), json_encode($collection));
+        $file = file_put_contents($input->getOption('output'), json_encode($collection));
+        if ($file === false) {
+            throw new \Exception(
+                "Failed to write, permission denied."
+            );
+        }
 
         $output->writeln("\n<info>Done.</info>\n");
     }
