@@ -21,9 +21,17 @@ class ConvertCommand extends Command
             )
             ->addOption(
                'path',
-               getcwd(),
-               InputOption::VALUE_REQUIRED,
-               'The absolute path pointing to the location of your JSON file. Defaults to the current directory.'
+               null,
+               InputOption::VALUE_OPTIONAL,
+               'The absolute path pointing to the location of your JSON file.',
+               getcwd()
+            )
+            ->addOption(
+               'output',
+               null,
+               InputOption::VALUE_OPTIONAL,
+               'The location (including the filename) of where your collection should be saved.',
+               sprintf('%s/collection.json', getcwd())
             )
             ->addOption(
                'host',
@@ -41,7 +49,7 @@ EOT
     {
         $filePath = $input->getOption('path');
 
-        $file = is_null($filePath) ? $input->getArgument('input-file') : $filePath.DIRECTORY_SEPARATOR.$input->getArgument('input-file');
+        $file = $filePath.DIRECTORY_SEPARATOR.$input->getArgument('input-file');
 
         if (!file_exists($file)) {
             throw new \Exception(
@@ -127,9 +135,14 @@ EOT
 
         $collection['requests'] = $requests;
 
-        $output->writeln(sprintf("\n<info>Done.</info>"));
+        $file = file_put_contents($input->getOption('output'), json_encode($collection));
+        if ($file === false) {
+            throw new \Exception(
+                "Failed to write, permission denied."
+            );
+        }
 
-        file_put_contents(getcwd().'/collection.json', json_encode($collection));
+        $output->writeln("\n<info>Done.</info>\n");
     }
 
     /**
