@@ -56,6 +56,14 @@ By default Blueman will look for the JSON file in the same location as where you
 $ blueman convert api.json --path=/Users/wouter/Desktop
 ```
 
+### Specify output file
+
+By default Blueman will create a `collection.json` file in the current directory. You can save the file to a different folder and change the output filename by passing the output parameter:
+
+```sh
+$ blueman convert api.json --output=/Users/wouter/Desktop/postman_collection.json
+```
+
 ### Setting the host
 
 The base host of your API can be set in a couple of different ways.
