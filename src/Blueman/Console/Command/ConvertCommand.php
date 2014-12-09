@@ -154,34 +154,117 @@ EOT
      */
     private function parseUri($resource, $action)
     {
-        $uriTemplate = $resource->uriTemplate;
+        $uriTemplate  = $resource->uriTemplate;
+        $convertedUri = '';
 
-        if (strpos($uriTemplate, '{?') !== false) {
-            $resultString = preg_match('/{(.*?)}/', $uriTemplate, $matches);
-            $resultString = $matches[1];
-            if (strpos($resultString, '?') !== false) {
-                $resultString = str_replace(',', '&', substr($resultString, 1));
-                $urlParameters = explode('&', $resultString);
-            }
+        if ($this->hasQueryParams($uriTemplate)) {
+            $convertedUri = $this->replaceQueryParams(
+                $uriTemplate, 
+                $action->parameters
+            );
+        }
+        
+        if ($this->hasUriParams($uriTemplate)) {
+            $convertedUri = $this->replaceUriParams(
+                strlen($convertedUri) > 0 ? $convertedUri : $uriTemplate, 
+                $action->parameters
+            );
+        }
 
-            foreach ($urlParameters as $key => $urlParameter) {
-                $urlParameters[$key] = $urlParameter . '=' . $action->parameters[$key]->example;
-            }
+        return strlen($convertedUri) > 0 ? $convertedUri : $uriTemplate;
+    }
 
-            $start = strpos($uriTemplate, '{');
-            $convertedUri = substr_replace($uriTemplate, '', $start);
+    /**
+     * Replace query parameters in given uri.
+     * 
+     * E.g.: /players{?name,age} -> /players?name=John&age=25
+     * 
+     * @param string $uriTemplate /players{?name,age}
+     * @param array $parameters
+     * @return string /players?name=John&age=25
+     */
+    private function replaceQueryParams($uriTemplate, array $parameters)
+    {
+        preg_match('/{\?(.*)}/', $uriTemplate, $matches);
+        $resultString  = '?' . $matches[1];
+        $urlParameters = null;
+        
+        if (strpos($resultString, '?') !== false) {
+            $resultString = str_replace(',', '&', substr($resultString, 1));
+            $urlParameters = explode('&', $resultString);
+        }
 
-            foreach ($urlParameters as $key => $urlParameter) {
-                $convertedUri .= ($key === 0 ? '?' : '&') . $urlParameter;
-            }
-        } else if (strpos($uriTemplate, '{') !== false) {
-            foreach ($action->parameters as $parameter) {
-                $convertedUri = str_replace('{'.$parameter->name.'}', $parameter->example, $uriTemplate);
-            }
-        } else {
-            $convertedUri = $uriTemplate;
+        foreach ($urlParameters as $key => $urlParameter) {
+            $urlParameters[$key] = $urlParameter . '=' . $this->getParameter($urlParameter, $parameters)->example;
+        }
+
+        $start = strpos($uriTemplate, '{?');
+        $convertedUri = substr_replace($uriTemplate, '', $start);
+
+        foreach ($urlParameters as $key => $urlParameter) {
+            $convertedUri .= ($key === 0 ? '?' : '&') . $urlParameter;
+        }
+        
+        return $convertedUri;
+    }
+
+    /**
+     * Replace uri parameters in given uri.
+     * 
+     * E.g.: /players/{name} -> /players/John
+     * 
+     * @param string $uriTemplate /players/{name}
+     * @param array $parameters
+     * @return string /players/John
+     */
+    private function replaceUriParams($uriTemplate, array $parameters)
+    {
+        $convertedUri = $uriTemplate;
+
+        foreach ($parameters as $parameter) {
+            $convertedUri = str_replace('{'.$parameter->name.'}', $parameter->example, $convertedUri);
         }
 
         return $convertedUri;
+    }
+
+    /**
+     * Get parameter by name from given parameter bag.
+     * 
+     * @param string $name
+     * @param array $params
+     * @return string|null
+     */
+    private function getParameter($name, array $params)
+    {
+        foreach ($params as $param) {
+            if ($param->name === $name) {
+                return $param;
+            }
+        }
+        
+        return null;
+    }
+
+    /**
+     * Helper to inspect a given uri for query params.
+     * 
+     * @param string $uri /players{?name,age}
+     * @return bool
+     */
+    private function hasQueryParams($uri)
+    {
+        return strpos($uri, '{?') !== false;
+    }
+
+    /**
+     * Helper to inspect a given uri for uri params.
+     *
+     * @param string $uri /players/{name}
+     * @return bool
+     */
+    private function hasUriParams($uri)
+    {
+        return strpos($uri, '{') !== false;
     }
 }
