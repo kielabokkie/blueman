@@ -74,7 +74,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
         $resource->uriTemplate = '/players';
         $action = new stdClass();
         
-        $result = $method->invokeArgs($cmd, [$resource, $action]);
+        $result = $method->invokeArgs($cmd, array($resource, $action));
         
         $this->assertEquals('/players', $result);
     }
@@ -92,9 +92,9 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
         $nameParam->example = 'John';
 
         $action = new stdClass();
-        $action->parameters = [$nameParam];
+        $action->parameters = array($nameParam);
 
-        $result = $method->invokeArgs($cmd, [$resource, $action]);
+        $result = $method->invokeArgs($cmd, array($resource, $action));
 
         $this->assertEquals('/players?name=John', $result);
     }
@@ -116,9 +116,9 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
         $ageParam->example = 25;
 
         $action = new stdClass();
-        $action->parameters = [$nameParam, $ageParam];
+        $action->parameters = array($nameParam, $ageParam);
 
-        $result = $method->invokeArgs($cmd, [$resource, $action]);
+        $result = $method->invokeArgs($cmd, array($resource, $action));
 
         $this->assertEquals('/players?name=John&age=25', $result);
     }
@@ -136,9 +136,9 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
         $nameParam->example = 'John';
 
         $action = new stdClass();
-        $action->parameters = [$nameParam];
+        $action->parameters = array($nameParam);
 
-        $result = $method->invokeArgs($cmd, [$resource, $action]);
+        $result = $method->invokeArgs($cmd, array($resource, $action));
 
         $this->assertEquals('/players/John', $result);
     }
@@ -160,9 +160,9 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
         $gameParam->example = '52387';
 
         $action = new stdClass();
-        $action->parameters = [$nameParam, $gameParam];
+        $action->parameters = array($nameParam, $gameParam);
 
-        $result = $method->invokeArgs($cmd, [$resource, $action]);
+        $result = $method->invokeArgs($cmd, array($resource, $action));
 
         $this->assertEquals('/players/John/games/52387', $result);
     }
@@ -192,7 +192,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
         $localeParam->example = 'US';
 
         $action = new stdClass();
-        $action->parameters = [$nameParam, $gameParam, $filterParam, $localeParam];
+        $action->parameters = array($nameParam, $gameParam, $filterParam, $localeParam);
 
         $result = $method->invokeArgs($cmd, [$resource, $action]);
 
