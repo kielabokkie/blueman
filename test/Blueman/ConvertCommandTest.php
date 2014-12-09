@@ -194,7 +194,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
         $action = new stdClass();
         $action->parameters = array($nameParam, $gameParam, $filterParam, $localeParam);
 
-        $result = $method->invokeArgs($cmd, [$resource, $action]);
+        $result = $method->invokeArgs($cmd, array($resource, $action));
 
         $this->assertEquals('/players/John/games/52387?filter=flunkyball&locale=US', $result);
     }
