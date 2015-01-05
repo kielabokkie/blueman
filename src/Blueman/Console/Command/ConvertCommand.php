@@ -86,7 +86,7 @@ EOT
             $dialog = $this->getHelperSet()->get('dialog');
             $host = $dialog->ask(
                 $output,
-                "\n<info>Please enter the base uri of your API</info> [<comment>https://api.example.com/v1</comment>]: ",
+                "\n<info>Enter the base uri of your API</info> [<comment>https://api.example.com/v1</comment>]: ",
                 'https://api.example.com/v1'
             );
         }
@@ -159,14 +159,14 @@ EOT
 
         if ($this->hasQueryParams($uriTemplate)) {
             $convertedUri = $this->replaceQueryParams(
-                $uriTemplate, 
+                $uriTemplate,
                 $action->parameters
             );
         }
-        
+
         if ($this->hasUriParams($uriTemplate)) {
             $convertedUri = $this->replaceUriParams(
-                strlen($convertedUri) > 0 ? $convertedUri : $uriTemplate, 
+                strlen($convertedUri) > 0 ? $convertedUri : $uriTemplate,
                 $action->parameters
             );
         }
@@ -176,9 +176,9 @@ EOT
 
     /**
      * Replace query parameters in given uri.
-     * 
+     *
      * E.g.: /players{?name,age} -> /players?name=John&age=25
-     * 
+     *
      * @param string $uriTemplate /players{?name,age}
      * @param array $parameters
      * @return string /players?name=John&age=25
@@ -188,7 +188,7 @@ EOT
         preg_match('/{\?(.*)}/', $uriTemplate, $matches);
         $resultString  = '?' . $matches[1];
         $urlParameters = null;
-        
+
         if (strpos($resultString, '?') !== false) {
             $resultString = str_replace(',', '&', substr($resultString, 1));
             $urlParameters = explode('&', $resultString);
@@ -204,15 +204,15 @@ EOT
         foreach ($urlParameters as $key => $urlParameter) {
             $convertedUri .= ($key === 0 ? '?' : '&') . $urlParameter;
         }
-        
+
         return $convertedUri;
     }
 
     /**
      * Replace uri parameters in given uri.
-     * 
+     *
      * E.g.: /players/{name} -> /players/John
-     * 
+     *
      * @param string $uriTemplate /players/{name}
      * @param array $parameters
      * @return string /players/John
@@ -230,7 +230,7 @@ EOT
 
     /**
      * Get parameter by name from given parameter bag.
-     * 
+     *
      * @param string $name
      * @param array $params
      * @return string|null
@@ -242,13 +242,13 @@ EOT
                 return $param;
             }
         }
-        
+
         return null;
     }
 
     /**
      * Helper to inspect a given uri for query params.
-     * 
+     *
      * @param string $uri /players{?name,age}
      * @return bool
      */

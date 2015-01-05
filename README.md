@@ -2,6 +2,7 @@
 
 [![Author](http://img.shields.io/badge/author-@kielabokkie-lightgrey.svg?style=flat-square)](https://twitter.com/kielabokkie)
 [![Build Status](http://img.shields.io/travis/pixelfusion/blueman/master.svg?style=flat-square)](https://travis-ci.org/pixelfusion/blueman)
+[![Codacy Badge](https://img.shields.io/codacy/a3d1afc3e17b4af3adf9b5543cb81959.svg?style=flat-square)](https://www.codacy.com/public/pixelfusion/blueman)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 Convert an [API Blueprint](http://apiblueprint.org) JSON file into a [Postman](http://www.getpostman.com) collection.
