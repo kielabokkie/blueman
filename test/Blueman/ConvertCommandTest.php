@@ -69,13 +69,13 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
     {
         $cmd = new ConvertCommand();
         $method = $this->getAccessibleParseUriMethod();
-        
+
         $resource = new stdClass();
         $resource->uriTemplate = '/players';
         $action = new stdClass();
-        
+
         $result = $method->invokeArgs($cmd, array($resource, $action));
-        
+
         $this->assertEquals('/players', $result);
     }
 
@@ -86,7 +86,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players{?name}';
-        
+
         $nameParam = new stdClass();
         $nameParam->name = 'name';
         $nameParam->example = 'John';
@@ -106,11 +106,11 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players{?name,age}';
-        
+
         $nameParam = new stdClass();
         $nameParam->name = 'name';
         $nameParam->example = 'John';
-        
+
         $ageParam = new stdClass();
         $ageParam->name = 'age';
         $ageParam->example = 25;
@@ -130,7 +130,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players/{name}';
-        
+
         $nameParam = new stdClass();
         $nameParam->name = 'name';
         $nameParam->example = 'John';
@@ -150,11 +150,11 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players/{name}/games/{game_id}';
-        
+
         $nameParam = new stdClass();
         $nameParam->name = 'name';
         $nameParam->example = 'John';
-        
+
         $gameParam = new stdClass();
         $gameParam->name = 'game_id';
         $gameParam->example = '52387';
@@ -174,19 +174,19 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players/{name}/games/{game_id}{?filter,locale}';
-        
+
         $nameParam = new stdClass();
         $nameParam->name = 'name';
         $nameParam->example = 'John';
-        
+
         $gameParam = new stdClass();
         $gameParam->name = 'game_id';
         $gameParam->example = '52387';
-        
+
         $filterParam = new stdClass();
         $filterParam->name = 'filter';
         $filterParam->example = 'flunkyball';
-        
+
         $localeParam = new stdClass();
         $localeParam->name = 'locale';
         $localeParam->example = 'US';
@@ -201,7 +201,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Helper to call `parseUri` on `ConvertCommand`
-     * 
+     *
      * @return ReflectionMethod Accessible `ConvertCommand::parseUri`
      */
     private function getAccessibleParseUriMethod()
@@ -209,7 +209,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
         $reflection = new ReflectionClass('\Blueman\Console\Command\ConvertCommand');
         $method = $reflection->getMethod('parseUri');
         $method->setAccessible(true);
-        
+
         return $method;
     }
 }
