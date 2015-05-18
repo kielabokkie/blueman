@@ -39,7 +39,7 @@ $ composer create-project pixelfusion/blueman your-project-name
 
 ## Usage
 
-To generate the Postman collection you run the `convert` command. For example, if the API Blueprint JSON file you generated is called `api.json` you would execute the following command:
+To generate a Postman collection you run the `convert` command. For example, if the API Blueprint JSON file you generated is called `api.json` you would execute the following command:
 
 ```sh
 $ blueman convert api.json
