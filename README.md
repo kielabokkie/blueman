@@ -1,5 +1,7 @@
 # Blueman
 
+[![Join the chat at https://gitter.im/pixelfusion/blueman](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pixelfusion/blueman?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Author](http://img.shields.io/badge/author-@kielabokkie-lightgrey.svg?style=flat-square)](https://twitter.com/kielabokkie)
 [![Build Status](http://img.shields.io/travis/pixelfusion/blueman/master.svg?style=flat-square)](https://travis-ci.org/pixelfusion/blueman)
 [![Code Coverage](https://img.shields.io/codecov/c/github/pixelfusion/blueman.svg)](https://codecov.io/github/pixelfusion/blueman)
