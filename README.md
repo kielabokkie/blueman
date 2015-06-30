@@ -6,6 +6,7 @@
 [![Codacy Badge](https://img.shields.io/codacy/a3d1afc3e17b4af3adf9b5543cb81959.svg?style=flat-square)](https://www.codacy.com/public/pixelfusion/blueman)
 [![Packagist Version](https://img.shields.io/packagist/v/pixelfusion/blueman.svg?style=flat-square)](https://packagist.org/packages/pixelfusion/blueman)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Gitter](https://img.shields.io/badge/gitter-join%20chat-2DCD76.svg?style=flat-square)](https://gitter.im/pixelfusion/blueman)
 
 Convert an [API Blueprint](http://apiblueprint.org) JSON file into a [Postman](http://www.getpostman.com) collection.
 
