@@ -2,7 +2,7 @@
 
 [![Author](http://img.shields.io/badge/by-@kielabokkie-lightgrey.svg?style=flat-square)](https://twitter.com/kielabokkie)
 [![Build Status](http://img.shields.io/travis/pixelfusion/blueman/master.svg?style=flat-square)](https://travis-ci.org/pixelfusion/blueman)
-[![Code Coverage](https://img.shields.io/codecov/c/github/pixelfusion/blueman.svg)](https://codecov.io/github/pixelfusion/blueman)
+[![Code Coverage](https://img.shields.io/codecov/c/github/pixelfusion/blueman.svg?style=flat-square)](https://codecov.io/github/pixelfusion/blueman)
 [![Codacy Badge](https://img.shields.io/codacy/a3d1afc3e17b4af3adf9b5543cb81959.svg?style=flat-square)](https://www.codacy.com/public/pixelfusion/blueman)
 [![Packagist Version](https://img.shields.io/packagist/v/pixelfusion/blueman.svg?style=flat-square)](https://packagist.org/packages/pixelfusion/blueman)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
