@@ -195,7 +195,10 @@ EOT
         }
 
         foreach ($urlParameters as $key => $urlParameter) {
-            $urlParameters[$key] = $urlParameter . '=' . $this->getParameter($urlParameter, $parameters)->example;
+            $parameter = $this->getParameter($urlParameter, $parameters);
+            if(is_object($parameter) && property_exists($parameter, 'example')){
+                $urlParameters[$key] = $urlParameter . '=' . $parameter->example;
+            }
         }
 
         $start = strpos($uriTemplate, '{?');
