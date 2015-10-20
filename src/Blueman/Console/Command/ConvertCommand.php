@@ -196,7 +196,7 @@ EOT
 
         foreach ($urlParameters as $key => $urlParameter) {
             $parameter = $this->getParameter($urlParameter, $parameters);
-            if(is_object($parameter) && property_exists($parameter, 'example')){
+            if (is_object($parameter) && property_exists($parameter, 'example')){
                 $urlParameters[$key] = $urlParameter . '=' . $parameter->example;
             }
         }
