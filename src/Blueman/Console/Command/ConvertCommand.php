@@ -132,6 +132,7 @@ EOT
 
         $collection['timestamp'] = time();
         $collection['synced'] = 'false';
+        $collection['order'] = array();
 
         $collection['requests'] = $requests;
 
