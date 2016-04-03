@@ -1,71 +1,74 @@
 {
-  "_version": "2.0",
-  "metadata": [
-    {
-      "name": "HOST",
-      "value": "https://foosball.pixelfusion.co.nz/v1"
-    },
-    {
-      "name": "FORMAT",
-      "value": "1A"
-    }
-  ],
-  "name": "Foosball API",
-  "description": "## Introduction\n\nThis is a simple API for keeping Foosball scores. It doesn't really exists and is just created to demonstrate the the <a href=\"http://git.io/api-blueprint-parser\" target=\"_blank\">API Blueprint Parser</a>.\n\n",
-  "resourceGroups": [
-    {
-      "name": "Players",
-      "description": "",
-      "resources": [
-        {
-          "name": "Player",
-          "description": "",
-          "uriTemplate": "/players",
-          "model": {},
-          "parameters": [],
-          "actions": [
-            {
-              "name": "Create a Player",
-              "description": "Add a new player.\n\n",
-              "method": "POST",
-              "parameters": [],
-              "examples": [
-                {
-                  "name": "",
-                  "description": "",
-                  "requests": [
-                    {
-                      "name": "",
-                      "description": "",
-                      "headers": [
-                        {
-                          "name": "Content-Type",
-                          "value": "application/json"
-                        },
-                        {
-                          "name": "X-API-TOKEN",
-                          "value": "{{SOME_API_TOKEN}}"
-                        }
-                      ],
-                      "body": "{\n    \"name\": \"Craig\"\n}\n",
-                      "schema": ""
-                    }
-                  ],
-                  "responses": [
-                    {
-                      "name": "201",
-                      "description": "",
-                      "headers": [],
-                      "body": "",
-                      "schema": ""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "_version": "2.2",
+  "ast": {
+    "_version": "4.0",
+    "metadata": [
+      {
+        "name": "HOST",
+        "value": "https://foosball.pixelfusion.co.nz/v1"
+      },
+      {
+        "name": "FORMAT",
+        "value": "1A"
+      }
+    ],
+    "name": "Foosball API",
+    "description": "## Introduction\n\nThis is a simple API for keeping Foosball scores. It doesn't really exists and is just created to demonstrate the the <a href=\"http://git.io/api-blueprint-parser\" target=\"_blank\">API Blueprint Parser</a>.\n\n",
+    "resourceGroups": [
+      {
+        "name": "Players",
+        "description": "",
+        "resources": [
+          {
+            "name": "Player",
+            "description": "",
+            "uriTemplate": "/players",
+            "model": {},
+            "parameters": [],
+            "actions": [
+              {
+                "name": "Create a Player",
+                "description": "Add a new player.\n\n",
+                "method": "POST",
+                "parameters": [],
+                "examples": [
+                  {
+                    "name": "",
+                    "description": "",
+                    "requests": [
+                      {
+                        "name": "",
+                        "description": "",
+                        "headers": [
+                          {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "name": "X-API-TOKEN",
+                            "value": "{{SOME_API_TOKEN}}"
+                          }
+                        ],
+                        "body": "{\n    \"name\": \"Craig\"\n}\n",
+                        "schema": ""
+                      }
+                    ],
+                    "responses": [
+                      {
+                        "name": "201",
+                        "description": "",
+                        "headers": [],
+                        "body": "",
+                        "schema": ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

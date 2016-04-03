@@ -38,6 +38,16 @@ Blueman can also be installed using Composer if you prefer that:
 $ composer create-project pixelfusion/blueman your-project-name
 ```
 
+## Prerequisites
+
+The API Blueprint JSON file that you want to convert with Blueman should be created using [Drafter](https://github.com/apiaryio/drafter). By default Drafter creates `refract` formatted JSON files but Blueman only supports the `AST` format. You will have to force Drafter to use `AST` by passing the `-t` parameter, for example:
+
+```sh
+drafter -f json -t ast -o api.json api.md
+```
+
+**Note:** As of December 2015 the API Blueprint AST format has been deprecated. The API Blueprint AST has been superseded by [API Description Refract Namespace](https://github.com/refractproject/refract-spec/blob/master/namespaces/api-description-namespace.md). At this point Blueman only supports the `AST` format so as soon as Drafter drops support for generating `AST` formatted files, `Blueman` won't work anymore. Pull Requests to add support for the `refract` format are highly appreciated!
+
 ## Usage
 
 To generate a Postman collection you run the `convert` command. For example, if the API Blueprint JSON file you generated is called `api.json` you would execute the following command:
