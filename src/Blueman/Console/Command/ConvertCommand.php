@@ -6,12 +6,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-
 use Rhumsaa\Uuid\Uuid;
 
 class ConvertCommand extends Command
 {
-    protected function configure() {
+    protected function configure()
+    {
         $this->setName("convert")
             ->setDescription("Converts an API Blueprint JSON file into a Postman collection")
             ->addArgument(
@@ -20,24 +20,24 @@ class ConvertCommand extends Command
                 'The JSON file to convert'
             )
             ->addOption(
-               'path',
-               null,
-               InputOption::VALUE_OPTIONAL,
-               'The absolute path pointing to the location of your JSON file.',
-               getcwd()
+                'path',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The absolute path pointing to the location of your JSON file.',
+                getcwd()
             )
             ->addOption(
-               'output',
-               null,
-               InputOption::VALUE_OPTIONAL,
-               'The location (including the filename) of where your collection should be saved.',
-               sprintf('%s/collection.json', getcwd())
+                'output',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The location (including the filename) of where your collection should be saved.',
+                sprintf('%s/collection.json', getcwd())
             )
             ->addOption(
-               'host',
-               null,
-               InputOption::VALUE_REQUIRED,
-               'The base host of your API (e.g. https://api.example.com/v1).'
+                'host',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The base host of your API (e.g. https://api.example.com/v1).'
             )
             ->setHelp(<<<EOT
 The <info>convert</info> command converts an API Blueprint JSON file into a Postman collection.
@@ -59,12 +59,13 @@ EOT
 
         $blueprint = json_decode(file_get_contents($file));
 
-        $version = (float)$blueprint->_version;
-        if ($version < 2.0) {
+        if (isset($blueprint->ast) === false) {
             throw new \Exception(
-                'Your API Blueprint needs to be build with Snow Crash 0.9.0 or higher.'
+                'Your API Blueprint file is not in the AST format. When parsing your API Blueprint file with Drafter add the -f flag to set the parse result type, e.g. `drafter -f json -t ast -o api.json api.md`.'
             );
         }
+
+        $blueprint = $blueprint->ast;
 
         $collection = array();
         $collection['id'] = (string)Uuid::uuid4();
@@ -197,7 +198,7 @@ EOT
 
         foreach ($urlParameters as $key => $urlParameter) {
             $parameter = $this->getParameter($urlParameter, $parameters);
-            if (is_object($parameter) && property_exists($parameter, 'example')){
+            if (is_object($parameter) && property_exists($parameter, 'example')) {
                 $urlParameters[$key] = $urlParameter . '=' . $parameter->example;
             }
         }

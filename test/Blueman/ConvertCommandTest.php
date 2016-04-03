@@ -48,13 +48,13 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/API Blueprint file \[.*\] not found/', $message);
     }
 
-    public function testOutdatedSnowCrashException()
+    public function testNonAstException()
     {
         try {
             $this->commandTester->execute(
                 array(
                     'command' => $this->command->getName(),
-                    'input-file' => 'api_outdated.json',
+                    'input-file' => 'api_non-ast.json',
                     '--path' => getcwd().'/test'
                 )
             );
@@ -62,7 +62,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
             $message = $e->getMessage();
         }
 
-        $this->assertEquals($message, 'Your API Blueprint needs to be build with Snow Crash 0.9.0 or higher.');
+        $this->assertContains('Your API Blueprint file is not in the AST format.', $message);
     }
 
     public function testParsingUriWithoutParams()
