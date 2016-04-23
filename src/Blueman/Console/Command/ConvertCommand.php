@@ -343,7 +343,7 @@ EOT
         $code = '/^(```)(.*)/';
 
         foreach ($markdown as $line) {
-            $matches = [];
+            $matches = array();
             $head = $head ? $head : false;
             if(preg_match($heading, $line, $matches)) {
                 $mode = $matches[1];
