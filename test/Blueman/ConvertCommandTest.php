@@ -68,8 +68,8 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
     public function testParsingUriWithoutParams()
     {
         $cmd = new ConvertCommand();
-        $method = $this->getAccessibleParseUriMethod();
-
+        $method = $this->getAccessibleMethod('parseUri');
+        
         $resource = new stdClass();
         $resource->uriTemplate = '/players';
         $action = new stdClass();
@@ -82,7 +82,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
     public function testParsingUriWithSingleQueryParam()
     {
         $cmd = new ConvertCommand();
-        $method = $this->getAccessibleParseUriMethod();
+        $method = $this->getAccessibleMethod('parseUri');
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players{?name}';
@@ -102,7 +102,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
     public function testParsingUriWithMultipleQueryParams()
     {
         $cmd = new ConvertCommand();
-        $method = $this->getAccessibleParseUriMethod();
+        $method = $this->getAccessibleMethod('parseUri');
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players{?name,age}';
@@ -126,7 +126,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
     public function testParsingUriWithSingleUriParam()
     {
         $cmd = new ConvertCommand();
-        $method = $this->getAccessibleParseUriMethod();
+        $method = $this->getAccessibleMethod('parseUri');
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players/{name}';
@@ -146,7 +146,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
     public function testParsingUriWithMultipleUriParams()
     {
         $cmd = new ConvertCommand();
-        $method = $this->getAccessibleParseUriMethod();
+        $method = $this->getAccessibleMethod('parseUri');
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players/{name}/games/{game_id}';
@@ -170,7 +170,7 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
     public function testParsingUriWithMultipleUriAndQueryParams()
     {
         $cmd = new ConvertCommand();
-        $method = $this->getAccessibleParseUriMethod();
+        $method = $this->getAccessibleMethod('parseUri');
 
         $resource = new stdClass();
         $resource->uriTemplate = '/players/{name}/games/{game_id}{?filter,locale}';
@@ -198,16 +198,43 @@ class ConvertCommandTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('/players/John/games/52387?filter=flunkyball&locale=US', $result);
     }
+    
+    public function testPostmanTests() {
+        $cmd = new ConvertCommand();
+        $method = $this->getAccessibleMethod('parseTestsFile');
+
+        $result = $method->invokeArgs($cmd, array('test/api.test.md'));
+
+        /**
+         * Isset code to prepend
+         */
+        $this->assertArrayHasKey(0, $result);
+        $this->assertNotEmpty($result[0]);
+        /**
+         * Isset tests for action
+         */
+        $this->assertArrayHasKey(1, $result);
+        $this->assertArrayHasKey('Create a Player', $result[1]);
+        $this->assertNotEmpty($result[1]['Create a Player'], 'Empty tests for action: Create a Player');
+        $this->assertNotEmpty($result[1]['Example 1'], 'Empty tests for action: Example 1');
+        /**
+         * No test for actions
+         */
+        $this->assertArrayNotHasKey('Another action', $result[1]);
+        $this->assertArrayNotHasKey('Example 0', $result[1]);
+        $this->assertArrayNotHasKey('Example 2', $result[1]);
+    }
 
     /**
-     * Helper to call `parseUri` on `ConvertCommand`
+     * Helper to get accessible method from `ConvertCommand`
      *
-     * @return ReflectionMethod Accessible `ConvertCommand::parseUri`
+     * @param string $method
+     * @return ReflectionMethod
      */
-    private function getAccessibleParseUriMethod()
+    private function getAccessibleMethod($method)
     {
         $reflection = new ReflectionClass('\Blueman\Console\Command\ConvertCommand');
-        $method = $reflection->getMethod('parseUri');
+        $method = $reflection->getMethod($method);
         $method->setAccessible(true);
 
         return $method;
