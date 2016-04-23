@@ -81,9 +81,8 @@ EOT
             );
         }
 
-        /** @var object|false $tests */
-        $tests = false;
-        if($input->getOption('tests-include')) {
+        $tests = array();
+        if('true' === $input->getOption('tests-include')) {
 
             $testsFile = $filePath . $input->getOption('tests-filename');
 
