@@ -107,7 +107,7 @@ You also may to define Postman's tests for your named Actions of Resources.
 To use this feature do:
 
 - create a Markdown formatted file in your path where `api.json` located (see --path option). By default, Blueman will be try get `blueman.tests.md` filename.
-- read example of markdown file [test/api.test.md]
+- read example of markdown file [test/api.test.md][]
 - write Postman tests for any Resource Action you want
 - use `--tests-include` (default: false) and `--tests-filename` (default: blueman.tests.md) options
 - enjoy :)
