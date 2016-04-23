@@ -39,6 +39,20 @@ class ConvertCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'The base host of your API (e.g. https://api.example.com/v1).'
             )
+            ->addOption(
+                'tests-filename',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The JSON file name with Postman tests (located at --path)',
+                'blueman.tests.md'
+            )
+            ->addOption(
+                'tests-include',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Add Postman tests to result JSON collection file (see --tests-filename)',
+                false
+            )
             ->setHelp(<<<EOT
 The <info>convert</info> command converts an API Blueprint JSON file into a Postman collection.
 EOT
@@ -49,7 +63,9 @@ EOT
     {
         $filePath = $input->getOption('path');
 
-        $file = $filePath.DIRECTORY_SEPARATOR.$input->getArgument('input-file');
+        $output->writeln('<info>Working Path: ' . $filePath . '</info>');
+
+        $file = $filePath . DIRECTORY_SEPARATOR . $input->getArgument('input-file');
 
         if (!file_exists($file)) {
             throw new \Exception(
@@ -65,10 +81,24 @@ EOT
             );
         }
 
+        /** @var object|false $tests */
+        $tests = false;
+        if($input->getOption('tests-include')) {
+
+            $testsFile = $filePath . $input->getOption('tests-filename');
+
+            if($testsFileExists = file_exists($testsFile)) {
+                $output->writeln('<info>Using Blueman file with Postman tests: ' . $testsFile . '</info>');
+                $tests = $this->parseTestsFile($testsFile);
+            } else {
+                $output->writeln('<comment>Blueman file with Postman tests NOT found:' . $testsFile . '</comment>');
+            }
+        }
+
         $blueprint = $blueprint->ast;
 
         $collection = array();
-        $collection['id'] = (string)Uuid::uuid4();
+        $collection['id'] = (string) Uuid::uuid4();
         $collection['name'] = $blueprint->name;
         $collection['description'] = $blueprint->description;
 
@@ -101,6 +131,7 @@ EOT
 
             $folders['order'] = array();
             foreach ($resourceGroup->resources as $resource) {
+                /** @var object $action */
                 foreach ($resource->actions as $action) {
                     $actionId = (string)Uuid::uuid4();
 
@@ -114,13 +145,17 @@ EOT
                                 $headers[] = sprintf('%s: %s', $header->name, $header->value);
                             }
                             $request['headers'] = implode("\n", $headers);
-                            $request['data'] = (string)$exampleRequest->body;
+                            $request['data'] = (string) $exampleRequest->body;
                             $request['dataMode'] = 'raw';
                             $request['collectionId'] = $collection['id'];
                         }
-                        $request['url'] = $host.$this->parseUri($resource, $action);
+                        $request['url'] = $host . $this->parseUri($resource, $action);
                         $request['name'] = $resource->uriTemplate;
                         $request['method'] = $action->method;
+                        if($tests) {
+                            $request['tests'] = $this->getTest($action->name, $tests);
+                        }
+
                         $requests[] = $request;
                     }
                 }
@@ -150,8 +185,8 @@ EOT
     /**
      * Parses the URI to make sure any parameters are replaced with actual values
      *
-     * @param  stdObject $resource The current resource
-     * @param  stdObject $action   The current action
+     * @param  object $resource The current resource
+     * @param  object $action   The current action
      * @return string              The parsed URI
      */
     private function parseUri($resource, $action)
@@ -271,5 +306,77 @@ EOT
     private function hasUriParams($uri)
     {
         return strpos($uri, '{') !== false;
+    }
+
+    /**
+     * Find test by resource Action name
+     * @param string$actionName
+     * @param object $tests [0 - prepend, 1 - tests by actions]
+     * @return string
+     */
+    private function getTest($actionName, $tests)
+    {
+
+        return isset($tests[1][$actionName])
+            ? $tests[0] . $tests[1][$actionName]
+            : '';
+    }
+
+    /**
+     * Parse Markdown with tests
+     * @todo to parse class?
+     * @param string $testsFile
+     * @return array
+     */
+    private function parseTestsFile($testsFile)
+    {
+        if(!$markdown = file($testsFile, FILE_SKIP_EMPTY_LINES)) {
+            return array();
+        }
+
+        $tests = array();
+        $prepend = '';
+        $mode = false;
+        $head = false;
+        $append = false;
+
+        $heading = '/^(#+)\s+(.*)(\s*)$/';
+        $code = '/^(```)(.*)/';
+
+        foreach ($markdown as $line) {
+            $matches = [];
+            $head = $head ? $head : false;
+            if(preg_match($heading, $line, $matches)) {
+                $mode = $matches[1];
+                $head = trim($matches[2]);
+                $tests[$head] = '';
+                continue;
+            }
+            if(preg_match($code, $line, $matches) && $head) {
+                $append = !$append;
+                continue;
+            }
+            if($head && $mode && $append) {
+                switch ($mode) {
+                    case '##':
+                        $prepend .= $line;
+                        break;
+                    case '###':
+                        $tests[$head] .= $line;
+                        break;
+                }
+            }
+        }
+
+        foreach ($tests as $action => $test) {
+            if(!$test) {
+                unset($tests[$action]);
+            }
+        }
+
+        return array(
+            $prepend,
+            $tests,
+        );
     }
 }
