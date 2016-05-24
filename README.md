@@ -109,17 +109,17 @@ To use this feature do:
 - create a Markdown formatted file in your path where `api.json` located (see --path option). By default, Blueman will be try get `blueman.tests.md` filename.
 - read the markdown file example [test/api.test.md](test/api.test.md)
 - write Postman tests for any Resource Action you want
-- use `--tests-include` (default: false) and `--tests-filename` (default: blueman.tests.md) options
+- use `--include-tests` (default: unset) and `--tests-filename` (default: blueman.tests.md) options
 - enjoy :)
 
 #### Usage example
 
 ```sh
-$ blueman convert api.json --tests-include=true 
+$ blueman convert api.json --include-tests 
 ```
 
 or
 
 ```sh
-$ blueman convert api.json --tests-include=true  --tests-filename=<YOUR_FILNAME>.md
+$ blueman convert api.json --include-tests --tests-filename=<YOUR_FILNAME>.md
 ```

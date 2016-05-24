@@ -47,11 +47,10 @@ class ConvertCommand extends Command
                 'blueman.tests.md'
             )
             ->addOption(
-                'tests-include',
+                'include-tests',
                 null,
-                InputOption::VALUE_OPTIONAL,
-                'Add Postman tests to result JSON collection file (see --tests-filename)',
-                false
+                InputOption::VALUE_NONE,
+                'Add Postman tests to result JSON collection file (see --tests-filename)'
             )
             ->setHelp(<<<EOT
 The <info>convert</info> command converts an API Blueprint JSON file into a Postman collection.
@@ -82,11 +81,11 @@ EOT
         }
 
         $tests = array();
-        if('true' === $input->getOption('tests-include')) {
+        if($input->getOption('include-tests')) {
 
             $testsFile = $filePath . $input->getOption('tests-filename');
 
-            if($testsFileExists = file_exists($testsFile)) {
+            if(file_exists($testsFile)) {
                 $output->writeln('<info>Using Blueman file with Postman tests: ' . $testsFile . '</info>');
                 $tests = $this->parseTestsFile($testsFile);
             } else {
