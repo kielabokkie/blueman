@@ -100,17 +100,11 @@ Lastly, if you don't do either of the above you'll be prompted to set the host w
 $ blueman convert api.json --host=https://api.{{host}}/v1
 ```
 
-### Setting the Postman tests
+### Postman tests
 
-You also may to define Postman's tests for your named Actions of Resources.
+Blueman also allows you to define Postman tests.
 
-To use this feature do:
-
-- create a Markdown formatted file in your path where `api.json` located (see --path option). By default, Blueman will be try get `blueman.tests.md` filename.
-- read the markdown file example [test/api.test.md](test/api.test.md)
-- write Postman tests for any Resource Action you want
-- use `--include-tests` (default: unset) and `--tests-filename` (default: blueman.tests.md) options
-- enjoy :)
+To use this feature you have to create a Markdown file in your path where `api.json` is located (see --path option). By default, Blueman will try to read a file called `blueman.tests.md`. Check the [test/api.test.md](test/api.test.md) file for an example of the syntax. You can use a different name if you like but you will need to specify the `--test-filename` parameter when you run the `convert` command.
 
 #### Usage example
 
@@ -118,7 +112,7 @@ To use this feature do:
 $ blueman convert api.json --include-tests 
 ```
 
-or
+If the name of your test file is not `blueman.tests.md` then specify the filename:
 
 ```sh
 $ blueman convert api.json --include-tests --tests-filename=<YOUR_FILNAME>.md
