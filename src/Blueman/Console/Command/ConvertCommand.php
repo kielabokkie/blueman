@@ -148,7 +148,7 @@ EOT
                             $request['collectionId'] = $collection['id'];
                         }
                         $request['url'] = $host . $this->parseUri($resource, $action);
-                        $request['name'] = $resource->uriTemplate;
+                        $request['name'] = !empty($action->name) ? $action->name : $resource->uriTemplate;
                         $request['method'] = $action->method;
                         if($tests) {
                             $request['tests'] = $this->getTest($action->name, $tests);
