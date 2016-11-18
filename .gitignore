@@ -11,5 +11,4 @@ nbproject
 
 # Folders to ignore
 vendor
-composer.lock
 collection.json
