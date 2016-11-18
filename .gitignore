@@ -12,6 +12,5 @@ nbproject
 # Folders to ignore
 build
 vendor
-composer.lock
 collection.json
 blueman.phar

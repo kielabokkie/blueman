@@ -81,11 +81,11 @@ EOT
         }
 
         $tests = array();
-        if($input->getOption('include-tests')) {
+        if ($input->getOption('include-tests')) {
 
             $testsFile = $filePath . $input->getOption('tests-filename');
 
-            if(file_exists($testsFile)) {
+            if (file_exists($testsFile)) {
                 $output->writeln('<info>Using Blueman file with Postman tests: ' . $testsFile . '</info>');
                 $tests = $this->parseTestsFile($testsFile);
             } else {
@@ -145,12 +145,13 @@ EOT
                             $request['headers'] = implode("\n", $headers);
                             $request['data'] = (string) $exampleRequest->body;
                             $request['dataMode'] = 'raw';
-                            $request['collectionId'] = $collection['id'];
                         }
                         $request['url'] = $host . $this->parseUri($resource, $action);
                         $request['name'] = $resource->uriTemplate;
                         $request['method'] = $action->method;
-                        if($tests) {
+                        $request['collectionId'] = $collection['id'];
+
+                        if ($tests) {
                             $request['tests'] = $this->getTest($action->name, $tests);
                         }
 
@@ -328,7 +329,7 @@ EOT
      */
     private function parseTestsFile($testsFile)
     {
-        if(!$markdown = file($testsFile, FILE_SKIP_EMPTY_LINES)) {
+        if (!$markdown = file($testsFile, FILE_SKIP_EMPTY_LINES)) {
             return array();
         }
 
@@ -344,17 +345,17 @@ EOT
         foreach ($markdown as $line) {
             $matches = array();
             $head = $head ? $head : false;
-            if(preg_match($heading, $line, $matches)) {
+            if (preg_match($heading, $line, $matches)) {
                 $mode = $matches[1];
                 $head = trim($matches[2]);
                 $tests[$head] = '';
                 continue;
             }
-            if(preg_match($code, $line, $matches) && $head) {
+            if (preg_match($code, $line, $matches) && $head) {
                 $append = !$append;
                 continue;
             }
-            if($head && $mode && $append) {
+            if ($head && $mode && $append) {
                 switch ($mode) {
                     case '##':
                         $prepend .= $line;
@@ -367,7 +368,7 @@ EOT
         }
 
         foreach ($tests as $action => $test) {
-            if(!$test) {
+            if (!$test) {
                 unset($tests[$action]);
             }
         }
