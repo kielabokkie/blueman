@@ -18,3 +18,7 @@ script:
 
 after_script:
   - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  slack:
+    secure: gddGUecgiMq0lXgj/PRCbpgszt8tx1mnnCVOo7AMWsFy68AORsJDPT9ApxrmGANiFrdWyMOe3zpsHsMjzMVrpehwB16/ORXHo+o8q8wqmYbajhHGUpfKDIfsCMcVQ2ETrbiMTy+LsV3yjmickkdixwOBdYlV//c1egwzhun22Ms=
