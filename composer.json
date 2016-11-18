@@ -11,6 +11,7 @@
     ],
     "require": {
         "symfony/console": "~2.4",
+        "symfony/debug": "~2.8",
         "ramsey/uuid": "~2.7"
     },
     "require-dev": {
