@@ -116,11 +116,12 @@ EOT
                             $request['headers'] = implode("\n", $headers);
                             $request['data'] = (string)$exampleRequest->body;
                             $request['dataMode'] = 'raw';
-                            $request['collectionId'] = $collection['id'];
                         }
                         $request['url'] = $host.$this->parseUri($resource, $action);
                         $request['name'] = $resource->uriTemplate;
                         $request['method'] = $action->method;
+                        $request['collectionId'] = $collection['id'];
+
                         $requests[] = $request;
                     }
                 }
