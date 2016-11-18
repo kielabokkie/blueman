@@ -10,5 +10,7 @@ Thumbs.db
 nbproject
 
 # Folders to ignore
+build
 vendor
 collection.json
+blueman.phar

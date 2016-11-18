@@ -99,3 +99,21 @@ Lastly, if you don't do either of the above you'll be prompted to set the host w
 ```sh
 $ blueman convert api.json --host=https://api.{{host}}/v1
 ```
+
+### Postman tests
+
+Blueman also allows you to define Postman tests.
+
+To use this feature you have to create a Markdown file in your path where `api.json` is located (see --path option). By default, Blueman will try to read a file called `blueman.tests.md`. Check the [test/api.test.md](test/api.test.md) file for an example of the syntax. You can use a different name if you like but you will need to specify the `--test-filename` parameter when you run the `convert` command.
+
+#### Usage example
+
+```sh
+$ blueman convert api.json --include-tests 
+```
+
+If the name of your test file is not `blueman.tests.md` then specify the filename:
+
+```sh
+$ blueman convert api.json --include-tests --tests-filename=<YOUR_FILNAME>.md
+```

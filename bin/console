@@ -9,7 +9,7 @@ set_time_limit(0);
 
 use Symfony\Component\Console\Application;
 
-$app = new Application('Blueman CLI', '1.0.0');
+$app = new Application('Blueman CLI', '1.1.0');
 $app->addCommands(array(
     new Blueman\Console\Command\ConvertCommand(),
 ));
