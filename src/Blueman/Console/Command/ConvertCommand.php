@@ -136,7 +136,7 @@ EOT
                     $folders['order'][] = $actionId;
 
                     foreach ($action->examples as $example) {
-                        $request['id'] = $actionId;
+                        $request['id'] = (string) Uuid::uuid4();
                         foreach ($example->requests as $exampleRequest) {
                             $headers = array();
                             foreach ($exampleRequest->headers as $header) {
