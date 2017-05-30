@@ -133,7 +133,6 @@ EOT
                 foreach ($resource->actions as $action) {
                     $actionId = (string)Uuid::uuid4();
 
-                    $folders['order'][] = $actionId;
 
                     foreach ($action->examples as $example) {
                         $request['id'] = (string) Uuid::uuid4();
@@ -145,12 +144,13 @@ EOT
                             $request['headers'] = implode("\n", $headers);
                             $request['data'] = (string) $exampleRequest->body;
                             $request['dataMode'] = 'raw';
+                            $folders['order'][] = $request['id'];
                         }
                         $request['url'] = $host . $this->parseUri($resource, $action);
                         $request['name'] = $resource->uriTemplate;
                         $request['method'] = $action->method;
                         $request['collectionId'] = $collection['id'];
-
+                        $request['folder'] = $folders['id'];
                         if ($tests) {
                             $request['tests'] = $this->getTest($action->name, $tests);
                         }
