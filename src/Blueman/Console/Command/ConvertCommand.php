@@ -142,12 +142,12 @@ EOT
                                 $headers[] = sprintf('%s: %s', $header->name, $header->value);
                             }
                             $request['headers'] = implode("\n", $headers);
+                            $request['name'] = (string) $exampleRequest->name;
                             $request['data'] = (string) $exampleRequest->body;
                             $request['dataMode'] = 'raw';
                             $folders['order'][] = $request['id'];
                         }
                         $request['url'] = $host . $this->parseUri($resource, $action);
-                        $request['name'] = $resource->uriTemplate;
                         $request['method'] = $action->method;
                         $request['collectionId'] = $collection['id'];
                         $request['folder'] = $folders['id'];
